@@ -1,0 +1,37 @@
+service: mattermost-qa-automation
+
+package:
+    individually: true
+
+provider:
+    name: aws
+    runtime: nodejs12.x
+    # Enable if AWS profile is available in local dev
+    profile: dev-aws
+    region: us-east-1
+
+custom:
+    webpackIncludeModules: true
+    webpack:
+        webpackConfig: ./webpack.config.js
+        packager: 'npm'
+    serverless-offline:
+        port: 4000
+
+functions:
+    post_outgoing_webhook:
+        handler: src/post_outgoing_webhook.default
+        timeout: 20
+        events:
+            - http:
+                  path: outgoing_webhook
+                  method: post
+                  cors: true
+            - schedule:
+                  rate: rate(5 minutes)
+                  enabled: true
+
+plugins:
+    - serverless-webpack
+    - serverless-offline
+    - serverless-dotenv-plugin

@@ -1,0 +1,33 @@
+{
+    "name": "mattermost-qa-automation",
+    "description": "A collection of Microservices being used for Mattermost QA Automation",
+    "version": "1.0.0",
+    "author": "Saturnino Abril",
+    "license": "Apache 2.0",
+    "main": "src/ping.js",
+    "scripts": {
+        "deploy:env": "sls deploy --stage $NODE_ENV",
+        "deploy:production": "export NODE_ENV=production && npm run deploy:env",
+        "format": "prettier --write 'src/*.js'",
+        "serve": "serverless offline start",
+        "serve:watch": "nodemon -e js -x serverless offline start",
+        "build": "serverless webpack",
+        "watch:ping": "serverless invoke local --watch --function ping --path fixtures/event.json",
+        "watch:warm": "serverless invoke local --watch --function ping --path fixtures/scheduled.json",
+        "test": "npm run format"
+    },
+    "devDependencies": {
+        "@babel/core": "7.8.7",
+        "@babel/preset-env": "7.8.7",
+        "babel-loader": "8.0.6",
+        "jest": "25.1.0",
+        "nodemon": "2.0.2",
+        "prettier": "1.19.1",
+        "serverless": "1.65.0",
+        "serverless-dotenv-plugin": "2.3.2",
+        "serverless-offline": "5.12.1",
+        "serverless-webpack": "5.3.1",
+        "webpack": "4.42.0",
+        "webpack-node-externals": "1.7.2"
+    }
+}
