@@ -1,7 +1,7 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-import {errorResponse, successResponse, runWarm} from './utils';
+import {errorResponse, runWarm} from './utils';
 
 const responseTypes = ['in_channel', 'comment'];
 
@@ -9,10 +9,11 @@ const postWebhook = (event, context, callback) => {
     const body = JSON.parse(event.body);
     const query = event.queryStringParameters;
 
-    const responseType = query.response_type || responseTypes[0];
-    const username = query.override_username === 'true' ? 'user_override' : '';
+    const responseType = (query && query.response_type) || responseTypes[0];
+    const username =
+        query && query.override_username === 'true' ? 'user_override' : '';
     const iconUrl =
-        query.override_icon_url === 'true'
+        query && query.override_icon_url === 'true'
             ? 'http://www.mattermost.org/wp-content/uploads/2016/04/icon.png'
             : '';
 
@@ -58,11 +59,11 @@ function getWebhookResponse(body, query, override) {
     - file_ids: "${body.file_ids}"
 
     #### Override
-    - responseType: "${query.response_type || ''}"
-    - username: "${query.override_username || ''}${
+    - responseType: "${(query && query.response_type) || ''}"
+    - username: "${(query && query.override_username) || ''}${
         override.username ? ' --> ' + override.username : ''
     }"
-    - iconUrl: "${query.override_icon_url || ''}${
+    - iconUrl: "${(query && query.override_icon_url) || ''}${
         override.iconUrl ? ' --> ' + override.iconUrl : ''
     }"
     `;
