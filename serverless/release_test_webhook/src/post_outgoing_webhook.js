@@ -32,8 +32,21 @@ function getWebhookResponse(body, query, override) {
 }
 
 const postWebhook = (event, context, callback) => {
+    if (event.headers['Content-Type'] !== 'application/json') {
+        const response = {
+            statusCode: 200,
+            body: JSON.stringify({
+                text: 'Unable to continue testing.  Please change Content Type to "application/json"',
+            }),
+        };
+
+        callback(null, response);
+
+        return;
+    }
+
     const body = JSON.parse(event.body);
-    const query = event.queryStringParameters;
+    const query = event.queryStringParameters || {};
 
     const responseType = (query && query.response_type) || responseTypes[0];
     const username = query && query.override_username === 'true' ? 'user_override' : '';

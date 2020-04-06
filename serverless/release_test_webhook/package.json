@@ -14,17 +14,20 @@
         "watch:warm": "serverless invoke local --watch --function ping --path fixtures/scheduled.json",
         "test": "npm run format"
     },
+    "dependencies": {
+        "serverless": "1.65.0",
+        "serverless-dotenv-plugin": "2.3.2"
+    },
     "devDependencies": {
-        "@babel/core": "7.9.0",
-        "@babel/preset-env": "7.9.0",
-        "babel-loader": "8.1.0",
-        "jest": "25.2.7",
+        "@babel/core": "7.8.7",
+        "@babel/preset-env": "7.8.7",
+        "babel-loader": "8.0.6",
+        "jest": "25.1.0",
         "nodemon": "2.0.2",
-        "serverless": "1.67.0",
-        "serverless-dotenv-plugin": "2.3.2",
-        "serverless-offline": "6.1.4",
+        "prettier": "1.19.1",
+        "serverless-offline": "5.12.1",
         "serverless-webpack": "5.3.1",
-        "webpack": "4.42.1",
+        "webpack": "4.42.0",
         "webpack-node-externals": "1.7.2"
     }
 }
