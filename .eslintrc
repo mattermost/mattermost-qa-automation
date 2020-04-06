@@ -1,0 +1,10 @@
+{
+    "extends": [
+        "airbnb",
+        "eslint:recommended",
+        "plugin:prettier/recommended"
+    ],
+    "env": {
+        "node": true
+    }
+}

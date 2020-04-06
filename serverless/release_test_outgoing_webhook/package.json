@@ -1,0 +1,32 @@
+{
+    "name": "release-test-outgoing-webhook",
+    "description": "This is the outgoing webhook that is used for Release testing - Integrations.",
+    "version": "1.0.0",
+    "author": "Saturnino Abril",
+    "license": "Apache 2.0",
+    "main": "src/ping.js",
+    "scripts": {
+        "deploy:env": "sls deploy --stage $NODE_ENV",
+        "deploy:production": "export NODE_ENV=production && npm run deploy:env",
+        "format": "prettier --write 'src/*.js'",
+        "serve": "serverless offline start",
+        "serve:watch": "nodemon -e js -x serverless offline start",
+        "build": "serverless webpack",
+        "watch:ping": "serverless invoke local --watch --function ping --path fixtures/event.json",
+        "watch:warm": "serverless invoke local --watch --function ping --path fixtures/scheduled.json",
+        "test": "npm run format"
+    },
+    "devDependencies": {
+        "@babel/core": "7.9.0",
+        "@babel/preset-env": "7.9.0",
+        "babel-loader": "8.1.0",
+        "jest": "25.2.7",
+        "nodemon": "2.0.2",
+        "serverless": "1.67.0",
+        "serverless-dotenv-plugin": "2.3.2",
+        "serverless-offline": "6.1.4",
+        "serverless-webpack": "5.3.1",
+        "webpack": "4.42.1",
+        "webpack-node-externals": "1.7.2"
+    }
+}
