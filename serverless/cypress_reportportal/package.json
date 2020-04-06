@@ -1,0 +1,32 @@
+{
+    "name": "cypress_reportportal",
+    "description": "Used for sending test reports from Cypress into ReportPortal instance.",
+    "version": "1.0.0",
+    "author": "Saturnino Abril",
+    "scripts": {
+        "deploy:env": "sls deploy --stage $NODE_ENV",
+        "deploy:production": "export NODE_ENV=production && npm run deploy:env",
+        "format": "prettier --write 'src/*.js'",
+        "serve": "serverless offline start",
+        "serve:watch": "nodemon -e js -x serverless offline start",
+        "build": "serverless webpack",
+        "test": "npm run format"
+    },
+    "dependencies": {
+        "reportportal-client": "5.5.0",
+        "serverless": "1.65.0",
+        "serverless-dotenv-plugin": "2.3.2"
+    },
+    "devDependencies": {
+        "@babel/core": "7.8.7",
+        "@babel/preset-env": "7.8.7",
+        "babel-loader": "8.0.6",
+        "jest": "25.1.0",
+        "nodemon": "2.0.2",
+        "prettier": "1.19.1",
+        "serverless-offline": "5.12.1",
+        "serverless-webpack": "5.3.1",
+        "webpack": "4.42.0",
+        "webpack-node-externals": "1.7.2"
+    }
+}
