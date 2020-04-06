@@ -1,10 +1,8 @@
 {
-    "name": "release-test-outgoing-webhook",
+    "name": "release_test_outgoing_webhook",
     "description": "This is the outgoing webhook that is used for Release testing - Integrations.",
     "version": "1.0.0",
     "author": "Saturnino Abril",
-    "license": "Apache 2.0",
-    "main": "src/ping.js",
     "scripts": {
         "deploy:env": "sls deploy --stage $NODE_ENV",
         "deploy:production": "export NODE_ENV=production && npm run deploy:env",

@@ -1,6 +1,6 @@
-## Release Test for Integrations: Outgoing Webhook
+## Release Test for Integrations: Webhook Service
 
-This is the outgoing webhook that is used for Release testing - Integrations. 
+Webhook used for Release testing - Integrations. 
 
 #### Offline/local development
 

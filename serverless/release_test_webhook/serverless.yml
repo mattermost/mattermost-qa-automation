@@ -1,4 +1,4 @@
-service: mattermost-qa-automation
+service: release-test-webhook-service
 
 package:
     individually: true
