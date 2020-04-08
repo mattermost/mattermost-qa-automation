@@ -7,30 +7,23 @@ const port = 3000;
 
 const responseTypes = ['in_channel', 'comment'];
 
-function getWebhookResponse(body, query, override) {
-    const username = override.username ? ` --> ${override.username}` : '';
-    const iconUrl = override.iconUrl ? ` --> ${override.iconUrl}` : '';
+function getWebhookResponse(body, {responseType, username, iconUrl}) {
+    const payload = Object.entries(body)
+        .map(([key, value]) => `- ${key}: "${value}"`)
+        .join('\n');
 
     return `
-    #### Outgoing Webhook Payload
-    - token: "${body.token}"
-    - team_id: "${body.team_id}"
-    - team_domain: "${body.team_domain}"
-    - channel_id: "${body.channel_id}"
-    - channel_name: "${body.channel_name}"
-    - timestamp: "${body.timestamp}"
-    - user_id: "${body.user_id}"
-    - user_name: "${body.user_name}"
-    - post_id: "${body.post_id}"
-    - text: "${body.text}"
-    - trigger_word: "${body.trigger_word}"
-    - file_ids: "${body.file_ids}"
+\`\`\`
+#### Outgoing Webhook Payload
+${payload}
 
-    #### Override
-    - responseType: "${(query && query.response_type) || ''}"
-    - username: "${(query && query.override_username) || ''}${username}"
-    - iconUrl: "${(query && query.override_icon_url) || ''}${iconUrl}"
-    `;
+#### Webhook override to Mattermost instance
+- response_type: "${responseType}"
+- type: ""
+- username: "${username}"
+- icon_url: "${iconUrl}"
+\`\`\`
+`;
 }
 
 app.post('/', (req, res) => {
@@ -39,19 +32,12 @@ app.post('/', (req, res) => {
         res.status(404).send({error: 'Invalid data'});
     }
 
-    const responseType = (query && query.response_type) || responseTypes[0];
-    const username = query && query.override_username === 'true' ? 'user_override' : '';
-    const iconUrl =
-        query && query.override_icon_url === 'true'
-            ? 'http://www.mattermost.org/wp-content/uploads/2016/04/icon.png'
-            : '';
+    const responseType = query.response_type || responseTypes[0];
+    const username = query.override_username || '';
+    const iconUrl = query.override_icon_url || '';
 
     const response = {
-        text: getWebhookResponse(body, query, {
-            iconUrl,
-            username,
-            responseType,
-        }),
+        text: getWebhookResponse(body, {responseType, username, iconUrl}),
         username,
         icon_url: iconUrl,
         type: '',

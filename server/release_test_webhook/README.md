@@ -1,6 +1,6 @@
-## Webhook for Release Testing
+## Webhook Callback URL for Release Testing
 
-- Run by `npm i && node index.js`
+- Run by `npm i && npm run dev`
 
 This is deployed in [runkit](https://runkit.com/saturnino/outgoing-webhook) and published with ready to use `POST endpoint https://outgoing-webhook-01snptsk6qvz.runkit.sh/`.
 
