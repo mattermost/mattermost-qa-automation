@@ -5,12 +5,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 const port = 3000;
 
+// @query - "channel_id" required, "type" optional
 app.post('/', (req, res) => {
     const channelId = req.query.channel_id;
-
     const response = {
         response_type: 'in_channel',
-        type: 'system_message',
         text: 'Extra response 2',
         channel_id: channelId,
         extra_responses: [
@@ -21,6 +20,11 @@ app.post('/', (req, res) => {
             },
         ],
     };
+
+    if (req.query.type) {
+        response.type = req.query.type;
+    }
+
     res.status(200).send(response);
 });
 
