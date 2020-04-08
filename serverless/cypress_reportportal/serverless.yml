@@ -1,4 +1,4 @@
-service: cypress_reportportal-service
+service: cypress-reportportal-service
 
 package:
     individually: true

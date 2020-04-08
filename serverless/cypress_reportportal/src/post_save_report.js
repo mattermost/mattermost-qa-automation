@@ -68,9 +68,9 @@ const saveReport = (event, context, callback) => {
 
     // Start Launch
     const launchObj = rpClient.startLaunch({
-        name: `${REPORTPORTAL_LAUNCH} (${branch} branch, build ${build})`,
+        name: `${REPORTPORTAL_LAUNCH} ${branch} branch`,
         startTime: report.stats.start,
-        description: `Cypress test report with ${branch} branch, build ${build}`,
+        description: `Cypress test report with ${branch} branch, Jenkins build ${build}`,
     });
 
     // Save each Suite and Test
