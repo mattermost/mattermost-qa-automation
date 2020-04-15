@@ -1,0 +1,16 @@
+{
+  "name": "server_qa_automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "keywords": [],
+  "author": "Saturnino Abril",
+  "dependencies": {
+    "dotenv": "8.2.0",
+    "express": "4.17.1",
+    "reportportal-client": "5.5.0"
+  }
+}
