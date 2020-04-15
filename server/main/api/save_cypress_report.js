@@ -43,6 +43,10 @@ module.exports = (req, res) => {
     }
 
     const {report, branch, build} = req.body;
+    if (!report || !branch || !build) {
+        res.status(404).send({error: {message: 'No request body found.'}});
+        return;
+    }
 
     const startDate = new Date(report.stats.start);
     const rpClient = new RPClient(reporterOptions);
